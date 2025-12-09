@@ -69,16 +69,14 @@ python interactive_run.py
 **Step 4: Follow the Interactive Menu**
 
 The script will guide you through the remaining steps:
-
-    Framework Selection: Choose between PyTorch (1) or TensorFlow/Keras (2).
+Framework Selection: Choose between PyTorch (1) or TensorFlow/Keras (2).
 
     Training: The script automatically calls the chosen framework's train.py to train the model and save the weights.
-
     Testing Mode Selection: Choose how you want to evaluate the model:
 
         1: Standard Test Set Evaluation: Uses the 10,000 unseen MNIST images to measure final accuracy.
 
-        2: Live Camera Feed: Opens your webcam for real-time prediction of handwritten digits. (Press 'q' to quit the camera feed.)
+        2: LWeb Camera ROI: Opens your webcam, takes a snapshot and runs the CNN on the region-of-interest(ROI)
 
 ---
 
