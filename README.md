@@ -62,7 +62,8 @@ cd understanding-cnns
 ```
 
 **Step 2: Run the Interactive Main Script**
-```python interactive_run.py
+```
+python interactive_run.py
 ```
 
 **Step 4: Follow the Interactive Menu**
