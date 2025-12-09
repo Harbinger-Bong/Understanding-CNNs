@@ -23,7 +23,7 @@ The project enforces strict separation between frameworks to avoid conceptual an
 
 ```
 /mnist-cnn-quantization-project/
-├── run_main.py                 # The main interactive script to start the project.
+├── interactive_run.py                 # The main interactive script to start the project.
 │
 ├── /pytorch/                   # PyTorch Implementation (Imperative/Research style)
 │   ├── model_utils.py          # Defines the MNIST_CNN class (Architecture Blueprint).
