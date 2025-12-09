@@ -1,0 +1,23 @@
+# .gitignore
+
+# Python environment
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Data and Logs
+data/                
+
+# PyTorch files
+*.pth                
+
+# TensorFlow/Keras files
+*.keras               
+*.h5
+*.tflite
+
+# Operating System Files
+.DS_Store
+
+# IDE files
+.vscode/
