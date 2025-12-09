@@ -68,15 +68,32 @@ python interactive_run.py
 
 **Step 4: Follow the Interactive Menu**
 
-The script will guide you through the remaining steps:
-Framework Selection: Choose between PyTorch (1) or TensorFlow/Keras (2).
+The script guides you through the remaining steps in sequence:
 
-    Training: The script automatically calls the chosen framework's train.py to train the model and save the weights.
-    Testing Mode Selection: Choose how you want to evaluate the model:
+* Framework Selection
 
-        1: Standard Test Set Evaluation: Uses the 10,000 unseen MNIST images to measure final accuracy.
+  * Choose **PyTorch (1)** or **TensorFlow/Keras (2)**.
 
-        2: LWeb Camera ROI: Opens your webcam, takes a snapshot and runs the CNN on the region-of-interest(ROI)
+* Training
+
+  * Automatically runs the selected framework’s `train.py`.
+  * Trains the CNN.
+  * Saves the trained model weights.
+
+* Testing Mode Selection
+
+  * Choose how the trained model is evaluated:
+
+    * **1: Standard Test Set Evaluation**
+
+      * Evaluates on the 10,000 unseen MNIST test images.
+      * Reports final accuracy.
+    * **2: Live Web Camera ROI**
+
+      * Activates the webcam.
+      * Captures a snapshot.
+      * Allows ROI selection.
+      * Runs the CNN on the selected region.
 
 ---
 
@@ -85,30 +102,25 @@ A Convolutional Neural Network (CNN) is a specialized type of deep learning mode
 
 ### 1. Why Not a Standard Neural Network?
 A standard neural network, i.e., a Multi-Layere Perceptron (MLP) sees an image only as a long, flat list of numbers (pixels). If you shift a digit by one pixel, the list of numbers changes completely, confusing the model.
-
 A CNN fixes this by doing two smart things:
-
-    Local Focus: It only looks at tiny parts of the image at a time.
-
-    Feature Sharing: It looks for the same feature (like a diagonal edge) everywhere in the image.
+* Local Focus: It only looks at tiny parts of the image at a time.
+* Feature Sharing: It looks for the same feature (like a diagonal edge) everywhere in the image.
 
 ### 2. The Feature Extractor Block (The "Looking" Part)
 This block is where the model learns the visual vocabulary of the image.
 
 **A. Convolution (Conv2D):** This is the core operation. It uses a tiny magnifying glass called a Kernel (or filter, usually 3×3 pixels).
 
-    Action: The 3×3 kernel slides across the entire image. At each step, it calculates a weighted sum of the 9 pixels it covers.
-
-    Result: The kernel doesn't see the whole image; it only learns to detect one specific feature, like a vertical line, a curve, or a corner. The result is a Feature Map showing where that specific feature exists in the image.
-
-    Weights: The numbers inside the kernel are the weights the network learns during training.
+* Action: The 3×3 kernel slides across the entire image. At each step, it calculates a weighted sum of the 9 pixels it covers.
+* Result: The kernel doesn't see the whole image; it only learns to detect one specific feature, like a vertical line, a curve, or a corner. The result is a Feature Map showing where that specific feature exists in the image.
+* Weights: The numbers inside the kernel are the weights the network learns during training.
 
 **B. ReLU Activation:** After the convolution, the Rectified Linear Unit (ReLU) function is applied. This simply throws away all negative results (sets them to zero) and keeps the positive ones. This step introduces non-linearity, which is necessary for the network to model complex, curvy boundaries needed to distinguish shapes like '6' from '8'.
 
 **C. Max-Pooling**
-Action: A Max-Pooling layer takes small non-overlapping windows (e.g., 2×2) from the feature map and keeps only the single highest number from that window.
+* Action: A Max-Pooling layer takes small non-overlapping windows (e.g., 2×2) from the feature map and keeps only the single highest number from that window.
 
-Result: This dramatically shrinks the size of the data (downsampling) and makes the features translation invariant. If a line moves slightly to the left, the max-pool value often remains the same, ensuring the classification stays robust.
+* Result: This dramatically shrinks the size of the data (downsampling) and makes the features translation invariant. If a line moves slightly to the left, the max-pool value often remains the same, ensuring the classification stays robust.
 
 ### The Classification Head (The "Deciding" Part)
 After several rounds of Convolution and Pooling, the image has been condensed into a powerful set of abstract features. This highly processed data is then handed off to a traditional network.
@@ -123,18 +135,18 @@ After several rounds of Convolution and Pooling, the image has been condensed in
 The entire process is governed by Backpropagation and the Optimizer (Adam), which constantly adjust the weights inside the 3×3 kernels to minimize the Loss Function (Cross-Entropy) until the model is accurate.
 
 **Loss Function**
-Purpose: To measure how wrong the model's prediction is compared to the true answer. It quantifies the error.
+* Purpose: To measure how wrong the model's prediction is compared to the true answer. It quantifies the error.
 
-Action: For our MNIST project, we use Categorical Cross-Entropy. If the model predicts a '4' with 90% confidence, but the true label is a '9', the loss function returns a large number (a high penalty). If the prediction is accurate, the loss is close to zero.
+* Action: For our MNIST project, we use Categorical Cross-Entropy. If the model predicts a '4' with 90% confidence, but the true label is a '9', the loss function returns a large number (a high penalty). If the prediction is accurate, the loss is close to zero.
 
-Goal: The entire training process is dedicated to minimizing this loss value.
+* Goal: The entire training process is dedicated to minimizing this loss value.
 
 **Backpropagation**
-Purpose: To efficiently calculate the gradient (the slope) of the loss function with respect to every single weight in the network.
+* Purpose: To efficiently calculate the gradient (the slope) of the loss function with respect to every single weight in the network.
 
-Action: The error calculated by the loss function travels backward from the output layer, through all the dense and convolutional layers, using the Chain Rule of Calculus.
+* Action: The error calculated by the loss function travels backward from the output layer, through all the dense and convolutional layers, using the Chain Rule of Calculus.
 
-Result: This process tells the model exactly how much each weight contributed to the final error and which direction it needs to be adjusted.
+* Result: This process tells the model exactly how much each weight contributed to the final error and which direction it needs to be adjusted.
 
 **Optimizer**
 Purpose: To use the gradients (calculated by Backpropagation) to update the model's weights in the direction that decreases the loss.
