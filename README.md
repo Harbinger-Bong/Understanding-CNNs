@@ -57,7 +57,7 @@ The entire project is controlled by the central `interactive_run.py` script. Alt
 
 **Step 1: Clone the Repository**
 ```# Clone the repository and navigate into the project directory
-git clone https://github.com/your-username/understanding-cnns.git
+git clone https://github.com/Harbinger-Bong/understanding-cnns.git
 cd understanding-cnns
 ```
 
